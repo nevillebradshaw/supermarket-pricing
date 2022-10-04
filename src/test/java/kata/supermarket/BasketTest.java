@@ -29,7 +29,9 @@ class BasketTest {
                 aSingleItemPricedPerUnit(),
                 multipleItemsPricedPerUnit(),
                 aSingleItemPricedByWeight(),
-                multipleItemsPricedByWeight()
+                multipleItemsPricedByWeight(),
+                aSingleGroupItemPricedPerUnitEvenNumberOfItems(),
+                aSingleGroupItemPricedPerUnitOddNumberOfItems()
         );
     }
 
@@ -48,6 +50,16 @@ class BasketTest {
                 Arrays.asList(aPackOfDigestives(), aPintOfMilk()));
     }
 
+    private static Arguments aSingleGroupItemPricedPerUnitEvenNumberOfItems() {
+        return Arguments.of("a single group item priced per unit - buy one get one free. Even Number of Items in Group", "1.55",
+                Arrays.asList(twoPacksOfDigestives()));
+    }
+
+    private static Arguments aSingleGroupItemPricedPerUnitOddNumberOfItems() {
+        return Arguments.of("a single group item priced per unit - buy one get one free. Odd Number of Items in Group", "3.10",
+                Arrays.asList(threePacksOfDigestives()));
+    }
+
     private static Arguments aSingleItemPricedPerUnit() {
         return Arguments.of("a single item priced per unit", "0.49", Collections.singleton(aPintOfMilk()));
     }
@@ -62,6 +74,14 @@ class BasketTest {
 
     private static Item aPackOfDigestives() {
         return new Product(new BigDecimal("1.55")).oneOf();
+    }
+
+    private static ItemGroup twoPacksOfDigestives() {
+        return new BuyOneGetOneFree(new Product(new BigDecimal("1.55")), new Product(new BigDecimal("1.55")));
+    }
+
+    private static ItemGroup threePacksOfDigestives() {
+        return new BuyOneGetOneFree(new Product(new BigDecimal("1.55")), new Product(new BigDecimal("1.55")), new Product(new BigDecimal("1.55")));
     }
 
     private static WeighedProduct aKiloOfAmericanSweets() {
