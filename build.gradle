@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+test {
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+
+    useJUnitPlatform()
+}
+
+group = 'kata'
+version = '1.0-SNAPSHOT'
+description = 'supermarket-kata'
+
+java.sourceCompatibility = JavaVersion.VERSION_11
